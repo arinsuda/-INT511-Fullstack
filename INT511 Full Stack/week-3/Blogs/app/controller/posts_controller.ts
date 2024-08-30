@@ -1,19 +1,20 @@
 import type { HttpContext } from '@adonisjs/core/http'
+import { v4 as uuidv4 } from 'uuid'
 
 interface Post {
-  id: number
+  id: string
   title: string
   body: string
 }
 
 const posts: Post[] = [
   {
-    id: 1,
+    id: '1',
     title: 'Hello AdonisJS',
     body: 'Adonis includes everything you need to create fully functional web app or an API server.',
   },
   {
-    id: 2,
+    id: '2',
     title: 'VueJS',
     body: 'Vue is a progressive framework for building user interfaces.',
   },
@@ -29,7 +30,6 @@ export default class PostsController {
     return view.render('posts', { posts: posts })
   }
 
-
   async create({view}:HttpContext){
     return view.render('create')
   }
@@ -43,7 +43,7 @@ export default class PostsController {
   //   }
   async show({ view, params }: HttpContext) {
     const id = params.id
-    const post = posts.find((p) => p.id == Number(id))
+    const post = posts.find((p) => p.id == String(id))
 
     return view.render('detail', { post })
   }
@@ -52,7 +52,7 @@ export default class PostsController {
     const title = request.input('title')
     const body = request.input('body')
 
-    const newId = posts.length+1
+    const newId = uuidv4()
     const newPost: Post = {id: newId, title: title, body: body}
     posts.push(newPost)
 
@@ -61,14 +61,14 @@ export default class PostsController {
 
   async edit({params, view}: HttpContext){
     const id = params.id
-    const post = posts.find((p) => p.id == Number(id))
+    const post = posts.find((p) => p.id == String(id))
 
     return view.render('edit', {post: post})
   }
 
   async update({params, request, response}: HttpContext){
     const id = params.id
-    const index = posts.findIndex( p => p.id == Number(id))
+    const index = posts.findIndex( p => p.id == String(id))
     posts[index].title = request.input('title')
     posts[index].body = request.input('body')
 
@@ -77,7 +77,7 @@ export default class PostsController {
 
   async destroy({params, response}: HttpContext){
     const id = params.Id
-    const index = posts.findIndex( p => p.id == Number(id))
+    const index = posts.findIndex( p => p.id == String(id))
     posts.splice(index, 1)
 
     response.redirect().toPath('/posts')
