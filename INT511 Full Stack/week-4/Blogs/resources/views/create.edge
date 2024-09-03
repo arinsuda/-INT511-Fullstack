@@ -1,0 +1,71 @@
+{{--  <!DOCTYPE html>
+<html>
+    <head>
+        <title>New Post</title>
+    </head>
+    <body>
+        <h1>New Post</h1>
+        <form action="/posts" method="POST">
+            {{ csrfField() }}
+            <table>
+                <tr>
+                    <td>
+                        <label>Title</label>
+                    </td>
+                    <td>
+                        <input type="text" name="title" size="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Body</label>
+                    </td>
+                    <td>
+                        <textarea name="body" cols="50" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Save">
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>  --}}
+
+@layouts.master({title: "New Post"})
+    <h1>New post</h1>
+    <form class="ui form" action="/posts" method="post">
+        {{ csrfField() }}
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="title" size="50" required>
+        </div>
+        <div class="field">
+            <label>Body</label>
+            <textarea name="body" rows="5" cols="50" required></textarea>
+        </div>
+        <input class="ui button" type="submit" value="Save">&nbsp;
+        <a class="ui button" href="{{ route('posts.index')}}">Cancel</a>
+    </form>
+@end
+ 
+{{--  @layouts.master({ title: "Posts"})
+
+<h1>Posts</h1>
+<form class="ui form" action="{{ post && post.id ? route('posts.update', { id: post.id }) : route('posts.store') }}" method="post">
+    {{ csrfField() }}
+    <div class="field">
+        <label>Title</label>
+        <input type="text" name="title" size="50" value="{{ post ? post.title : '' }}" required>
+    </div>
+    <div class="field">
+        <label>Body</label>
+        <textarea name="body" cols="50" rows="5" required>{{ post ? post.body : '' }}</textarea>
+    </div>
+    <input class="ui button" type="submit" value="Save">
+    <a class="ui button" href="{{ route('posts.index') }}">Cancel</a>
+</form>
+@end  --}}

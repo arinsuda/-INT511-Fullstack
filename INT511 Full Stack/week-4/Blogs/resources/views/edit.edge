@@ -1,0 +1,53 @@
+{{--  <!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit Post</title>
+    </head>
+    <body>
+        <h1>Edit Post</h1>
+        <form action="/posts/{{post.id}}/update" method="POST">
+            {{ csrfField() }}
+            <table>
+                <tr>
+                    <td>
+                        <label>Title</label>
+                    </td>
+                    <td>
+                        <input type="text" name="title" value="{{post.title}}" size="50">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Body</label>
+                    </td>
+                    <td>
+                        <textarea name="body" cols="50" rows="5">{{post.body}}</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" value="Save">
+                    </td>
+                    <td></td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>  --}}
+
+@layouts.master({ title: "Edit Post"})
+    <h1>Edit Posts</h1>
+    <form class="ui form" action="/{{ route('posts.update', {{ id: post.id }}) }}" method="POST">
+    {{ csrfField() }}
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="title" value="{{post.title}}" size="50">
+        </div>
+        <div class="field">
+            <label>Body</label>
+            <textarea name="body" cols="50" rows="5">{{ post.body}}</textarea>
+        </div>
+        <input class="ui button" type="submit" value="Save">
+        <a class="ui button" href="{{ route('posts.index') }}">Cancel</a>
+    </form>
+@end
